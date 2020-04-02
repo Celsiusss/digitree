@@ -17,10 +17,7 @@ export interface Digimon {
   trainingGains: string;
   evolutionListPos: string;
   level: string;
-  stats: {
-    name: string;
-    value: any;
-  }[];
+  stats: {[key: string]: string};
 }
 
 @Injectable({
