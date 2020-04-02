@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Digimon, DigimonService } from '../digimon.service';
 import { filter, map, take } from 'rxjs/operators';
@@ -45,8 +40,7 @@ export class DigimonDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public digimonService: DigimonService,
-    private changeDetectionRef: ChangeDetectorRef
+    public digimonService: DigimonService
   ) {}
 
   ngOnInit(): void {

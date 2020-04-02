@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {SELECT_PANEL_MAX_HEIGHT} from '@angular/material/select';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,12 +30,7 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule
   ],
-  providers: [
-    {
-      provide: SELECT_PANEL_MAX_HEIGHT,
-      useValue: 512
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DigimonService } from './digimon.service';
-import { filter, map, startWith, take, tap } from 'rxjs/operators';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map, startWith, take } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { group } from '@angular/animations';
 
 interface DigimonGroup {
   group: string;
@@ -18,16 +17,11 @@ interface DigimonGroup {
 })
 export class AppComponent implements OnInit {
   digimonNames: DigimonGroup[] = [];
-  currentNameIndex = 0;
 
   digimonControl = new FormControl();
   filteredDigimonNames: Observable<DigimonGroup[]>;
 
-  constructor(
-    public digimonService: DigimonService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(public digimonService: DigimonService, private router: Router) {}
 
   ngOnInit(): void {
     this.digimonService.init();
@@ -64,13 +58,6 @@ export class AppComponent implements OnInit {
           map(name => this._filter(name))
         );
       });
-  }
-
-  async onDigimonChange(name: string) {
-    if (name === 'Select...') {
-      return;
-    }
-    await this.router.navigate(['/digimon', name]);
   }
 
   goToDigimon(key: string) {
