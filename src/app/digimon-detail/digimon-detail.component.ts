@@ -14,7 +14,6 @@ export class DigimonDetailComponent implements OnInit {
   devolutionTree;
 
   statsNames = [
-    'ID',
     'HP',
     'MP',
     'OFFENSE',
@@ -27,14 +26,11 @@ export class DigimonDetailComponent implements OnInit {
     'BATTLES',
     'TECHS',
     'DECODE',
-    'CARE',
+    'care mistakes',
     'DIGIMEMORY',
     'DIGIMON',
-    'EVOITEM',
-    'HP_DIV10',
-    'MP_DIV10',
+    'evolution item',
     'REINCARNATION',
-    'TRIGGER',
     'QUOTA'
   ];
 
@@ -78,5 +74,18 @@ export class DigimonDetailComponent implements OnInit {
   toggleInformation() {
     this.digimonService.informationHidden = !this.digimonService
       .informationHidden;
+  }
+
+  toggleEvolutions() {
+    this.digimonService.showEvolutions = !this.digimonService.showEvolutions;
+  }
+
+  toggleDevolutions() {
+    this.digimonService.showDevolutions = !this.digimonService.showDevolutions;
+  }
+
+  getStat(name: string) {
+    const stat = this.digimon.stats.find(stat => stat.name === name);
+    return stat ? stat.value : '';
   }
 }

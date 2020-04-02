@@ -17,7 +17,10 @@ export interface Digimon {
   trainingGains: string;
   evolutionListPos: string;
   level: string;
-  stats: {[key: string]: string};
+  stats: {
+    name: string;
+    value: string;
+  }[];
 }
 
 @Injectable({
@@ -31,6 +34,8 @@ export class DigimonService {
   digimonData = new BehaviorSubject(this.data);
 
   informationHidden = false;
+  showEvolutions = true;
+  showDevolutions = false;
 
   currentTreeLevel = 1;
 
@@ -71,6 +76,13 @@ export class DigimonService {
 
         const stats = jsonStats.find((statEntry: any) => statEntry.ID === entry.Name);
 
+        const digiStats = stats ? Object.entries<string>(stats).map(statEntry => ({name: statEntry[0], value: statEntry[1]}))
+          .filter(stat => stat.name !== 'ID' && stat.name !== 'HP_DIV10' && stat.name !== 'MP_DIV10' && stat.name !== 'TRIGGER')
+          .map(stat => ({
+            name: stat.name === 'EVOITEM' ? 'evolution item' : stat.name === 'CARE' ? 'care mistakes' : stat.name,
+            value: stat.value === '^0' ? 'Highest' : stat.value
+          })) : [];
+
         return ({
           name: entry.Name,
           evolutions,
@@ -82,10 +94,10 @@ export class DigimonService {
           favoriteFood: entry['Favorite Food'],
           sleepingSchedule: entry['Sleeping Schedule'],
           specials,
-          trainingGains: entry['Training Type'],
+          trainingGains: entry['Training Type'].replace(/ATK/g, 'Attack').replace(/DEF/g, 'Defence').replace(/BRN/g, 'Brain'),
           evolutionListPos: entry['EvolutionList Pos'],
           level: entry['Level'],
-          stats
+          stats: digiStats
         });
       })
         .filter(digimon => digimon.name !== 'NO DATA')
