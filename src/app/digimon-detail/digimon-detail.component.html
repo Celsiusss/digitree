@@ -12,10 +12,16 @@
         <col span="1" style="width: 50%" />
       </colgroup>
 
-      <tr *ngFor="let stat of statsNames">
-        <td>{{ stat }}</td>
-        <td>{{ digimon.stats[stat] }}</td>
-      </tr>
+      <ng-container *ngFor="let stat of statsNames">
+        <tr
+          *ngIf="stat != 'HP_DIV10' && stat != 'MP_DIV10' && stat != 'TRIGGER'"
+        >
+          <td>{{ stat }}</td>
+          <td>
+            {{ digimon.stats[stat] == '^0' ? 'Highest' : digimon.stats[stat] }}
+          </td>
+        </tr>
+      </ng-container>
     </table>
 
     <table>
@@ -67,12 +73,11 @@
       (change)="changeLevels($event.target.value)"
       [selectedIndex]="digimonService.currentTreeLevel - 1"
     >
-      <option *ngFor="let num of [1, 2, 3, 4, 5, 6, 7]" [value]="num">{{
-        num
-      }}</option>
+      <option *ngFor="let num of [1, 2, 3, 4, 5, 6, 7]" [value]="num">
+        {{ num }}
+      </option>
     </select>
   </label>
-
 
   <div class="trees-container">
     <div class="trees-header">
@@ -86,22 +91,22 @@
             <li *ngFor="let digimonTreeItem of devolutionTree">
               <a [routerLink]="['/digimon', digimonTreeItem.name]">{{
                 digimonTreeItem.name
-                }}</a>
+              }}</a>
               <ul *ngIf="digimonTreeItem.devolutions.length">
                 <ng-container
                   *ngTemplateOutlet="
-                  devolutionList;
-                  context: { $implicit: digimonTreeItem.devolutions }
-                "
+                    devolutionList;
+                    context: { $implicit: digimonTreeItem.devolutions }
+                  "
                 ></ng-container>
               </ul>
             </li>
           </ng-template>
           <ng-container
             *ngTemplateOutlet="
-            devolutionList;
-            context: { $implicit: devolutionTree }
-          "
+              devolutionList;
+              context: { $implicit: devolutionTree }
+            "
           ></ng-container>
         </ul>
       </div>
@@ -114,22 +119,22 @@
             <li *ngFor="let digimonTreeItem of evolutionTree">
               <a [routerLink]="['/digimon', digimonTreeItem.name]">{{
                 digimonTreeItem.name
-                }}</a>
+              }}</a>
               <ul *ngIf="digimonTreeItem.evolutions.length">
                 <ng-container
                   *ngTemplateOutlet="
-                  evolutionList;
-                  context: { $implicit: digimonTreeItem.evolutions }
-                "
+                    evolutionList;
+                    context: { $implicit: digimonTreeItem.evolutions }
+                  "
                 ></ng-container>
               </ul>
             </li>
           </ng-template>
           <ng-container
             *ngTemplateOutlet="
-            evolutionList;
-            context: { $implicit: evolutionTree }
-          "
+              evolutionList;
+              context: { $implicit: evolutionTree }
+            "
           ></ng-container>
         </ul>
       </div>
