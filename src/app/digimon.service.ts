@@ -74,17 +74,45 @@ export class DigimonService {
         const devolutions = [1, 2, 3, 4, 5].map(evolution => entry[`Evolve From ${evolution}`]).filter(value => !!value);
         const specials = [1, 2, 3].map(special => entry[`Special ${special}`]).filter(value => value !== 'None');
 
-        const stats = jsonStats.find((statEntry: any) => statEntry.ID === entry.Name);
+        const name = entry.Name;
+
+        const stats = jsonStats.find((statEntry: any) => statEntry.ID === name);
 
         const digiStats = stats ? Object.entries<string>(stats).map(statEntry => ({name: statEntry[0], value: statEntry[1]}))
           .filter(stat => stat.name !== 'ID' && stat.name !== 'HP_DIV10' && stat.name !== 'MP_DIV10' && stat.name !== 'TRIGGER')
           .map(stat => ({
             name: stat.name === 'EVOITEM' ? 'evolution item' : stat.name === 'CARE' ? 'care mistakes' : stat.name,
             value: stat.value === '^0' ? 'Highest' : stat.value
-          })) : [];
+          }))
+          .map(stat => {
+            if (stat.name === 'REINCARNATION') {
+              switch (name) {
+                case 'Z\'dGarurumon':
+                  stat.value = 'MetalGarurumon';
+                  break;
+                case 'VictoryGreymon':
+                  stat.value = 'Dukemon';
+                  break;
+              }
+            }
+            if (stat.name === 'DIGIMEMORY') {
+              switch (name) {
+                case 'Paildramon':
+                  stat.value = 'Stingmon with XV-mon digimemory / XV-mon with Stingmon digimemory';
+                  break;
+                case 'Chaosmon':
+                  stat.value = 'BanchoLeomon with Darkdramon digimemory / Darkdramon with BanchoLeomon digimemory';
+                  break;
+                case 'Omegamon':
+                  stat.value = 'MetalGarurumon with WarGreymon digimemory / WarGreymon with MetalGarurumon digimemory';
+                  break;
+              }
+            }
+            return stat;
+          }) : [];
 
         return ({
-          name: entry.Name,
+          name,
           evolutions,
           devolutions,
           attribute: entry['Attribute'],
@@ -94,7 +122,8 @@ export class DigimonService {
           favoriteFood: entry['Favorite Food'],
           sleepingSchedule: entry['Sleeping Schedule'],
           specials,
-          trainingGains: entry['Training Type'].replace(/ATK/g, 'Attack').replace(/DEF/g, 'Defence').replace(/BRN/g, 'Brain'),
+          trainingGains: (entry['Training Type'] ? entry['Training Type'] : '')
+            .replace(/ATK/g, 'Offence').replace(/DEF/g, 'Defence').replace(/BRN/g, 'Brain'),
           evolutionListPos: entry['EvolutionList Pos'],
           level: entry['Level'],
           stats: digiStats
