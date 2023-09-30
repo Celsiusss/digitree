@@ -127,5 +127,7 @@
       }
     }
   },
-  "defaultProject": "digitree"
+  "cli": {
+    "analytics": false
+  }
 }

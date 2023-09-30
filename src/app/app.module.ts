@@ -9,8 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { CapitalizePipe } from './capitalize.pipe';
 
 const routes: Routes = [
@@ -20,7 +20,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, DigimonDetailComponent, HomeComponent, CapitalizePipe],
+  declarations: [
+    AppComponent,
+    DigimonDetailComponent,
+    HomeComponent,
+    CapitalizePipe
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

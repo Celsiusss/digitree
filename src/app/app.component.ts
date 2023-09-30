@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DigimonService } from './digimon.service';
 import { filter, map, startWith, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 interface DigimonGroup {
@@ -18,7 +18,7 @@ interface DigimonGroup {
 export class AppComponent implements OnInit {
   digimonNames: DigimonGroup[] = [];
 
-  digimonControl = new FormControl();
+  digimonControl = new UntypedFormControl();
   filteredDigimonNames: Observable<DigimonGroup[]>;
 
   constructor(public digimonService: DigimonService, private router: Router) {}
