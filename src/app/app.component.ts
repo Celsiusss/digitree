@@ -74,6 +74,10 @@ export class AppComponent implements OnInit {
     }
   }
 
+  clearSearch() {
+    this.digimonControl.setValue('');
+  }
+
   private _filter(value: string): DigimonGroup[] {
     const filterValue = value.toLowerCase();
 

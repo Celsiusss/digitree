@@ -13,26 +13,7 @@ export class DigimonDetailComponent implements OnInit {
   evolutionTree;
   devolutionTree;
 
-  statsNames = [
-    'HP',
-    'MP',
-    'OFFENSE',
-    'DEFENSE',
-    'SPEED',
-    'BRAINS',
-    'WEIGHT',
-    'HAPPINESS',
-    'DISCIPLINE',
-    'BATTLES',
-    'TECHS',
-    'DECODE',
-    'care mistakes',
-    'DIGIMEMORY',
-    'DIGIMON',
-    'evolution item',
-    'REINCARNATION',
-    'QUOTA'
-  ];
+  statsNames: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -57,6 +38,7 @@ export class DigimonDetailComponent implements OnInit {
           this.devolutionTree = this.digimonService.getDevolutionTree(
             digimon.name
           );
+          this.statsNames = digimon.stats.map(({ name }) => name);
         });
     });
   }
@@ -72,8 +54,8 @@ export class DigimonDetailComponent implements OnInit {
   }
 
   toggleInformation() {
-    this.digimonService.informationHidden = !this.digimonService
-      .informationHidden;
+    this.digimonService.informationHidden =
+      !this.digimonService.informationHidden;
   }
 
   toggleEvolutions() {
@@ -85,7 +67,9 @@ export class DigimonDetailComponent implements OnInit {
   }
 
   getStat(name: string) {
-    const stat = this.digimon.stats.find(stat => stat.name === name);
+    const stat = this.digimon.stats.find(
+      stat => stat.name.toLowerCase() === name.toLowerCase()
+    );
     return stat ? stat.value : '';
   }
 }
