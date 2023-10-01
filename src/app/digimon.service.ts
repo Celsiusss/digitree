@@ -47,15 +47,15 @@ export class DigimonService {
 
   init() {
     const requests = [
-      this.http.get(`/assets/${environment.fileNames.data}`, {
+      this.http.get(`${environment.fileNames.data}`, {
         responseType: 'text',
         observe: 'response'
       }),
-      this.http.get(`/assets/${environment.fileNames.stats}`, {
+      this.http.get(`${environment.fileNames.stats}`, {
         responseType: 'text',
         observe: 'response'
       }),
-      this.http.get(`/assets/${environment.fileNames.evoItems}`, {
+      this.http.get(`${environment.fileNames.evoItems}`, {
         responseType: 'text',
         observe: 'response'
       })

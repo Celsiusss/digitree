@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   fileNames: {
-    data: 'Digimon Evolution Tree Data (No Items).csv',
-    stats: 'Digimon Evolution Tree Data (Evolution Stats).csv',
-    evoItems: 'Digimon Evolution Tree Data (Evolution Items).csv'
+    data: '/assets/Digimon Evolution Tree Data (No Items).csv',
+    stats: '/assets/Digimon Evolution Tree Data (Evolution Stats).csv',
+    evoItems: '/assets/Digimon Evolution Tree Data (Evolution Items).csv'
   }
 };
 
