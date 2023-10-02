@@ -35,7 +35,7 @@ export class DigimonService {
   private data: Digimon[] = null;
   public ready = false;
 
-  digimonData = new BehaviorSubject(this.data);
+  public digimonData = new BehaviorSubject(this.data);
 
   informationHidden = false;
   showEvolutions = true;
@@ -103,6 +103,7 @@ export class DigimonService {
           const digiStats = stats
             ? Object.entries<string>(stats)
                 .map(([name, value]) => ({ name, value }))
+                .filter(stat => stat.name !== 'ID')
                 .filter(stat => stat.name !== 'Evolution Item')
                 .map(stat => ({
                   name: stat.name === 'Care' ? 'Care Mistakes' : stat.name,

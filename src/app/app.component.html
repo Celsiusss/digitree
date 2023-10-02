@@ -1,55 +1,13 @@
-<div class="content">
-  <div *ngIf="digimonService.ready; else loading">
-    <div>
-      <mat-form-field style="width: 400px">
-        <div class="input-field-box">
-          <input
-            type="text"
-            placeholder="Pick one"
-            aria-label="Number"
-            matInput
-            [formControl]="digimonControl"
-            [matAutocomplete]="auto"
-            (keypress)="goToDigimon($event.key)"
-          />
-          <button
-            *ngIf="digimonControl.value?.length"
-            class="clear-button"
-            (click)="clearSearch()"
-          >
-            X
-          </button>
-        </div>
-        <mat-autocomplete
-          autoActiveFirstOption
-          #auto="matAutocomplete"
-          (optionSelected)="goToDigimon('Enter')"
-        >
-          <mat-optgroup
-            *ngFor="let group of filteredDigimonNames | async"
-            [label]="group.group"
-          >
-            <mat-option *ngFor="let name of group.names" [value]="name">
-              {{ name }}
-            </mat-option>
-          </mat-optgroup>
-        </mat-autocomplete>
-      </mat-form-field>
-
-      <!--
-      <select (change)="onDigimonChange($event.target.value)" [selectedIndex]="currentNameIndex">
-        <option>Select...</option>
-        <option *ngFor="let name of digimonNames">{{name}}</option>
-      </select>
-      -->
+<div class="container">
+  <div class="content">
+    <div *ngIf="digimonService.ready; else loading">
+      <router-outlet></router-outlet>
     </div>
 
-    <router-outlet></router-outlet>
+    <ng-template #loading>
+      <div>
+        <p>Loading. Please wait...</p>
+      </div>
+    </ng-template>
   </div>
-
-  <ng-template #loading>
-    <div>
-      <p>Loading. Please wait...</p>
-    </div>
-  </ng-template>
 </div>

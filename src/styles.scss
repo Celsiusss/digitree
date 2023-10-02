@@ -2,7 +2,6 @@
 
 html,
 body {
-  height: 100%;
 }
 body {
   margin: 0;
@@ -11,4 +10,9 @@ body {
 
 .mat-mdc-autocomplete-panel {
   max-height: 80vh !important;
+}
+
+.mat-mdc-option,
+.mat-mdc-optgroup-label {
+  min-height: 32px !important;
 }
