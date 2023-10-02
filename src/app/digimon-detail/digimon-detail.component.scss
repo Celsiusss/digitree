@@ -7,8 +7,10 @@
   display: flex;
   justify-content: space-between;
 }
-.right-column {
-  // margin-left: 300px;
+
+h3 {
+  margin: 0;
+  font-size: 1em;
 }
 
 table {
@@ -32,20 +34,34 @@ a:hover {
 }
 
 .trees-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    'title_left . title_right'
+    'tree_inverse name tree';
   width: min-content;
   white-space: nowrap;
 }
-
-.trees-header {
-  display: flex;
-  justify-content: space-between;
+.evo-title {
+  grid-area: title_right;
+  justify-self: center;
 }
 
-.trees {
-  display: flex;
-  width: min-content;
+.devo-title {
+  grid-area: title_left;
+  justify-self: center;
+  text-align: right;
+}
+
+.tree-inverse {
+  grid-area: tree_inverse;
+}
+.tree-middle {
+  grid-area: name;
+}
+.tree {
+  grid-area: tree;
 }
 
 .tree-middle {

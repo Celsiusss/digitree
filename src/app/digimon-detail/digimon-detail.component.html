@@ -10,6 +10,7 @@
 
     <div class="data-tables" *ngIf="!digimonService.informationHidden">
       <div class="left-column">
+        <h3>Requirements for evolution</h3>
         <table>
           <colgroup>
             <col span="1" style="width: 200px" />
@@ -24,8 +25,9 @@
           </tr>
         </table>
       </div>
-      <div class="right-column">
+      <div class="middle-column">
         <table>
+          <h3>Evolution stat gains</h3>
           <colgroup>
             <col span="1" style="width: 200px" />
             <col span="1" />
@@ -36,13 +38,18 @@
             <td>{{ gain.value }}</td>
           </tr>
         </table>
-
+      </div>
+      <div class="right-column">
         <table>
           <colgroup>
             <col span="1" style="width: 200px" />
             <col span="1" />
           </colgroup>
 
+          <tr>
+            <td>Level:</td>
+            <td>{{ digimon.level }}</td>
+          </tr>
           <tr>
             <td>Attribute:</td>
             <td>{{ digimon.attribute }}</td>
@@ -114,84 +121,79 @@
       </div>
 
       <div class="trees-container">
-        <div class="trees-header">
-          <h3
-            class="devo-title"
-            *ngIf="devolutionTree.length && digimonService.showDevolutions"
-          >
-            Devolutions
-          </h3>
-          <h3
-            class="evo-title"
-            *ngIf="evolutionTree.length && digimonService.showEvolutions"
-          >
-            Evolutions
-          </h3>
-        </div>
-        <div class="trees">
-          <div class="tree-inverse">
-            <ul *ngIf="devolutionTree.length && digimonService.showDevolutions">
-              <ng-template #devolutionList let-devolutionTree>
-                <li *ngFor="let digimonTreeItem of devolutionTree">
-                  <a [routerLink]="['/digimon', digimonTreeItem.name]">{{
-                    digimonTreeItem.name
-                  }}</a>
-                  <ul *ngIf="digimonTreeItem.devolutions.length">
-                    <ng-container
-                      *ngTemplateOutlet="
-                        devolutionList;
-                        context: { $implicit: digimonTreeItem.devolutions }
-                      "
-                    ></ng-container>
-                  </ul>
-                </li>
-              </ng-template>
-              <ng-container
-                *ngTemplateOutlet="
-                  devolutionList;
-                  context: { $implicit: devolutionTree }
-                "
-              ></ng-container>
-            </ul>
-            <span
-              *ngIf="
-                devolutionTree.length == 0 && digimonService.showDevolutions
+        <h3
+          class="devo-title"
+          *ngIf="devolutionTree.length && digimonService.showDevolutions"
+        >
+          Devolutions
+        </h3>
+        <h3
+          class="evo-title"
+          *ngIf="evolutionTree.length && digimonService.showEvolutions"
+        >
+          Evolutions
+        </h3>
+
+        <div class="tree-inverse">
+          <ul *ngIf="devolutionTree.length && digimonService.showDevolutions">
+            <ng-template #devolutionList let-devolutionTree>
+              <li *ngFor="let digimonTreeItem of devolutionTree">
+                <a [routerLink]="['/digimon', digimonTreeItem.name]">{{
+                  digimonTreeItem.name
+                }}</a>
+                <ul *ngIf="digimonTreeItem.devolutions.length">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      devolutionList;
+                      context: { $implicit: digimonTreeItem.devolutions }
+                    "
+                  ></ng-container>
+                </ul>
+              </li>
+            </ng-template>
+            <ng-container
+              *ngTemplateOutlet="
+                devolutionList;
+                context: { $implicit: devolutionTree }
               "
-              >No more devolutions</span
-            >
-          </div>
+            ></ng-container>
+          </ul>
+          <span
+            *ngIf="devolutionTree.length == 0 && digimonService.showDevolutions"
+            >No more devolutions</span
+          >
+        </div>
 
-          <span class="tree-middle">{{ digimon.name }}</span>
+        <span class="tree-middle">{{ digimon.name }}</span>
 
-          <div class="tree">
-            <ul *ngIf="evolutionTree.length && digimonService.showEvolutions">
-              <ng-template #evolutionList let-evolutionTree>
-                <li *ngFor="let digimonTreeItem of evolutionTree">
-                  <a [routerLink]="['/digimon', digimonTreeItem.name]">{{
-                    digimonTreeItem.name
-                  }}</a>
-                  <ul *ngIf="digimonTreeItem.evolutions.length">
-                    <ng-container
-                      *ngTemplateOutlet="
-                        evolutionList;
-                        context: { $implicit: digimonTreeItem.evolutions }
-                      "
-                    ></ng-container>
-                  </ul>
-                </li>
-              </ng-template>
-              <ng-container
-                *ngTemplateOutlet="
-                  evolutionList;
-                  context: { $implicit: evolutionTree }
-                "
-              ></ng-container>
-            </ul>
-            <span
-              *ngIf="evolutionTree.length == 0 && digimonService.showEvolutions"
-              >No more evolutions</span
-            >
-          </div>
+        <div class="tree">
+          <ul *ngIf="evolutionTree.length && digimonService.showEvolutions">
+            <ng-template #evolutionList let-evolutionTree>
+              <li *ngFor="let digimonTreeItem of evolutionTree">
+                <a [routerLink]="['/digimon', digimonTreeItem.name]">{{
+                  digimonTreeItem.name
+                }}</a>
+                <ul *ngIf="digimonTreeItem.evolutions.length">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      evolutionList;
+                      context: { $implicit: digimonTreeItem.evolutions }
+                    "
+                  ></ng-container>
+                </ul>
+              </li>
+            </ng-template>
+            <ng-container
+              *ngTemplateOutlet="
+                evolutionList;
+                context: { $implicit: evolutionTree }
+              "
+            ></ng-container>
+          </ul>
+          <span
+            *ngIf="evolutionTree.length == 0 && digimonService.showEvolutions"
+            >No more evolutions</span
+          >
         </div>
       </div>
     </div>
