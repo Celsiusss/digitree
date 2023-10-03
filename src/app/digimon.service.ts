@@ -17,6 +17,8 @@ export interface Digimon {
   specials: string[];
   trainingGains: string;
   evolutionListPos: string;
+  likedAreas: string;
+  dislikedAreas: string;
   level: string;
   stats: {
     name: string;
@@ -135,6 +137,8 @@ export class DigimonService {
             favoriteFood: entry['Favorite Food'],
             sleepingSchedule: entry['Sleeping Schedule'],
             specials,
+            likedAreas: entry['Liked Areas'],
+            dislikedAreas: entry['Disliked Areas'],
             trainingGains: (entry['Training Type']
               ? entry['Training Type']
               : ''
